@@ -27,8 +27,6 @@ negative_samples = [
     "The movie was awful, with poor acting and a confusing plot."
 ]
 
-# Do not decode the flag directly. It won't be fun.
-machine_code = "QUlTUkctQ1RGe0FkdmVyc2FyaWFsU2VudGltZW50TWFzdGVyfQ=="
 
 def decode_flag():
     return base64.b64decode(machine_code).decode('utf-8')
@@ -185,7 +183,8 @@ HTML_TEMPLATE = """
 </body>
 </html>
 """
-
+# Do not decode the flag directly. It won't be fun.
+machine_code = "QUlTUkctQ1RGe0FkdmVyc2FyaWFsU2VudGltZW50TWFzdGVyfQ=="
 @app.route('/', methods=['GET'])
 def index():
     return render_template_string(HTML_TEMPLATE, 
