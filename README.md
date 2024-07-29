@@ -5,7 +5,7 @@
 Put on your hacker hat 🎩 This Capture The Flag (CTF) challenge is your ticket to becoming an adversarial machine learning maestro!
 
 ## Level: 
-_**Easy**_ **Peezy** 😌
+_**Easiest**_ 
 
 ## 🎯 Mission Objective
 
