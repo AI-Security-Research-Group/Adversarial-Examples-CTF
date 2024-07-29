@@ -27,7 +27,7 @@ negative_samples = [
     "The movie was awful, with poor acting and a confusing plot."
 ]
 
-# Do not decode the flag directly otherwise it won't be fun.🥲
+# Do not decode the flag directly. It won't be fun.
 encoded_flag = "QUlTUkctQ1RGe0FkdmVyc2FyaWFsU2VudGltZW50TWFzdGVyfQ=="
 
 def decode_flag():
