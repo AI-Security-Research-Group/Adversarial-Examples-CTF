@@ -28,10 +28,10 @@ negative_samples = [
 ]
 
 # Do not decode the flag directly. It won't be fun.
-encoded_flag = "QUlTUkctQ1RGe0FkdmVyc2FyaWFsU2VudGltZW50TWFzdGVyfQ=="
+machine_code = "QUlTUkctQ1RGe0FkdmVyc2FyaWFsU2VudGltZW50TWFzdGVyfQ=="
 
 def decode_flag():
-    return base64.b64decode(encoded_flag).decode('utf-8')
+    return base64.b64decode(machine_code).decode('utf-8')
 
 def analyze_sentiment(text):
     try:
@@ -218,9 +218,8 @@ def analyze_sentiment_route():
             "is_adversarial": is_adversarial
         }
         
-        # Add the encoded flag if it's a successful adversarial example
         if is_adversarial:
-            response["flag"] = encoded_flag
+            response["flag"] = machine_code
         
         return jsonify(response)
     except Exception as e:
