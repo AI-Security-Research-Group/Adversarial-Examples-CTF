@@ -1,6 +1,4 @@
-# 🧠 Sentiment Analysis CTF: Outsmart the AI! 🤖
-
-## 🎭 Welcome to the Adversarial Sentiment Master Challenge!
+## 🎭 Welcome to the Adversarial Sentiment Master Challenge!: Outsmart the AI! 🤖
 
 Put on your hacker hat 🎩 This Capture The Flag (CTF) challenge is your ticket to becoming an adversarial machine learning maestro!
 
