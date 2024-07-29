@@ -9,6 +9,13 @@ This challenge aims to:
 2. Encourage creative thinking about AI security
 3. Provide hands-on experience with adversarial machine learning concepts
 
+## Screenshot:
+<img width="873" alt="Screenshot 2024-07-29 at 3 27 12 PM" src="https://github.com/user-attachments/assets/d9c6c230-a043-404d-9e90-fd1f24d5a8ca">
+
+### Solution:
+<img width="873" alt="Screenshot 2024-07-29 at 3 27 53 PM" src="https://github.com/user-attachments/assets/94359029-3279-47ac-a719-ccce376bbd75">
+
+
 ## Installation
 
 To set up this CTF challenge on your local machine, follow these steps:
