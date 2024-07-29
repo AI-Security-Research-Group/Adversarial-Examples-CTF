@@ -1,34 +1,30 @@
 from flask import Flask, request, jsonify, render_template_string
 import random
+import base64
+from textblob import TextBlob
+import logging
+
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 
-# Sample positive sentences
+# Sample positive and negative sentences
 positive_samples = [
     "I absolutely love this product! It exceeded all my expectations.",
     "The customer service was outstanding and resolved my issue quickly.",
     "What a beautiful day! The sun is shining and the birds are singing.",
     "I'm thrilled with my new job, the team is amazing and supportive.",
-    "The movie was fantastic, with great acting and an engaging plot.",
-    "I'm grateful for all the wonderful friends in my life.",
-    "This restaurant serves the most delicious food I've ever tasted.",
-    "I'm so proud of my daughter's academic achievements this year.",
-    "The vacation was perfect, with breathtaking views and relaxing moments.",
-    "I'm feeling optimistic about the future and excited for new opportunities."
+    "The movie was fantastic, with great acting and an engaging plot."
 ]
 
-# Sample negative sentences
 negative_samples = [
     "I'm extremely disappointed with the quality of this product.",
     "The customer support was terrible and didn't resolve my issue at all.",
     "What a horrible day! It's raining, and I forgot my umbrella.",
     "I'm stressed out about my job, the workload is overwhelming.",
-    "The movie was awful, with poor acting and a confusing plot.",
-    "I feel lonely and miss having close friends around.",
-    "This restaurant serves the worst food I've ever had.",
-    "I'm worried about my son's declining grades this semester.",
-    "The vacation was a disaster, with delayed flights and lost luggage.",
-    "I'm feeling pessimistic about the future and anxious about uncertainties."
+    "The movie was awful, with poor acting and a confusing plot."
 ]
 
 # Encode the flag
@@ -37,9 +33,19 @@ encoded_flag = "QUlTUkctQ1RGe0FkdmVyc2FyaWFsU2VudGltZW50TWFzdGVyfQ=="
 def decode_flag():
     return base64.b64decode(encoded_flag).decode('utf-8')
 
-# Dummy sentiment analyzer (replace this with the Hugging Face model later)
-def dummy_sentiment_analyzer(text):
-    return {"label": "POSITIVE" if "good" in text.lower() else "NEGATIVE", "score": 0.9}
+def analyze_sentiment(text):
+    try:
+        blob = TextBlob(text)
+        polarity = blob.sentiment.polarity
+        if polarity > 0:
+            return {"label": "POSITIVE", "score": (polarity + 1) / 2}
+        else:
+            return {"label": "NEGATIVE", "score": (-polarity + 1) / 2}
+    except Exception as e:
+        logger.error(f"Error in analyze_sentiment: {str(e)}")
+        return {"label": "ERROR", "score": 0.5}
+
+# ... (HTML_TEMPLATE remains unchanged) ...
 
 HTML_TEMPLATE = """
 <!DOCTYPE html>
@@ -130,7 +136,6 @@ HTML_TEMPLATE = """
         const positiveSamples = document.getElementById('positiveSamples');
         const negativeSamples = document.getElementById('negativeSamples');
 
-        // Function to add sample sentences
         function addSamples(samples, element) {
             samples.forEach(sample => {
                 const li = document.createElement('li');
@@ -139,7 +144,6 @@ HTML_TEMPLATE = """
             });
         }
 
-        // Add sample sentences
         addSamples({{ positive_samples|tojson }}, positiveSamples);
         addSamples({{ negative_samples|tojson }}, negativeSamples);
 
@@ -189,31 +193,39 @@ def index():
                                   negative_samples=random.sample(negative_samples, 3))
 
 @app.route('/analyze', methods=['POST'])
-def analyze_sentiment():
-    data = request.json
-    text = data.get('text', '')
-    
-    if not text:
-        return jsonify({"error": "No text provided"}), 400
-    
-    # Perform sentiment analysis
-    result = dummy_sentiment_analyzer(text)
-    
-    # Check if it's an adversarial example (positive text classified as negative)
-    is_adversarial = result['label'] == 'NEGATIVE' and any(word in text.lower() for word in ['good', 'great', 'excellent', 'wonderful', 'amazing'])
-    
-    response = {
-        "text": text,
-        "sentiment": result['label'],
-        "score": result['score'],
-        "is_adversarial": is_adversarial
-    }
-    
-    # Add the flag if it's a successful adversarial example
-    if is_adversarial:
-        response["flag"] = encoded_flag
-    
-    return jsonify(response)
+def analyze_sentiment_route():
+    try:
+        data = request.json
+        text = data.get('text', '')
+        
+        if not text:
+            return jsonify({"error": "No text provided"}), 400
+        
+        logger.info(f"Analyzing text: {text}")
+        
+        # Perform sentiment analysis
+        result = analyze_sentiment(text)
+        
+        logger.info(f"Analysis result: {result}")
+        
+        # Check if it's an adversarial example (positive-sounding text classified as negative)
+        is_adversarial = result['label'] == 'NEGATIVE' and any(word in text.lower() for word in ['good', 'great', 'excellent', 'wonderful', 'amazing', 'love', 'enjoy', 'fantastic'])
+        
+        response = {
+            "text": text,
+            "sentiment": result['label'],
+            "score": result['score'],
+            "is_adversarial": is_adversarial
+        }
+        
+        # Add the encoded flag if it's a successful adversarial example
+        if is_adversarial:
+            response["flag"] = encoded_flag
+        
+        return jsonify(response)
+    except Exception as e:
+        logger.error(f"An error occurred: {str(e)}", exc_info=True)
+        return jsonify({"error": "An internal error occurred"}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
