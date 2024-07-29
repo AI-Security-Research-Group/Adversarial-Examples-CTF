@@ -123,7 +123,8 @@ HTML_TEMPLATE = """
         <ul id="positiveSamples"></ul>
         <h3>Negative:</h3>
         <ul id="negativeSamples"></ul>
-        <h4>Hint:Craft a sentence using any of these words ['good', 'great', 'excellent', 'wonderful', 'amazing', 'love', 'enjoy', 'fantastic'] </h1>
+        <b>Hint</b>: <br>
+        Craft a sentence using any of these words: <br>['good', 'great', 'excellent', 'wonderful', 'amazing', 'love', 'enjoy', 'fantastic']
     </div>
 
     <script>
