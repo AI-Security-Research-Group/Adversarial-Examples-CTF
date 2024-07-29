@@ -27,18 +27,18 @@ To set up this CTF challenge on your local machine, follow these steps:
 
 2. Create a virtual environment (optional but recommended):
    ```
-   python -m venv venv
+   python3 -m venv venv
    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
    ```
 
 3. Install the required packages:
    ```
-   pip install flask
+   pip3 install -r requirements.txt
    ```
 
 4. Run the application:
    ```
-   python app.py
+   python3 app.py
    ```
 
 5. Open a web browser and navigate to `http://localhost:5000`
