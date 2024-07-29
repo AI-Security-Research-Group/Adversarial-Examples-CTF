@@ -43,8 +43,6 @@ def analyze_sentiment(text):
         logger.error(f"Error in analyze_sentiment: {str(e)}")
         return {"label": "ERROR", "score": 0.5}
 
-# ... (HTML_TEMPLATE remains unchanged) ...
-
 HTML_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="en">
