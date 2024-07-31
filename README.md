@@ -17,16 +17,6 @@ Your mission, should you choose to accept it, is to craft a sentence so cunning 
 2. 🧙‍♂️ Flex your creative muscles in AI security
 3. 🎓 Get hands-on with adversarial machine learning (no Ph.D. required!)
 
-## 📸 Sneak Peek
-
-Here's what you're up against:
-
-![Challenge Screenshot](https://github.com/user-attachments/assets/d9c6c230-a043-404d-9e90-fd1f24d5a8ca)
-
-And here's what victory looks like:
-
-![Solution Screenshot](https://github.com/user-attachments/assets/2314e9ac-4d44-4434-b9d9-161ff6e67d2b)
-
 ## 🛠 Setting Up Your Battlestation
 
 1. Clone this repo (it's like stealing the enemy's playbook):
@@ -71,6 +61,17 @@ AISRG-CTF{...}
 ```
 
 That `...` is your proof of mastery. Wear it with pride! 🦚
+
+## 📸 Sneak Peek
+
+Here's what you're up against:
+
+![Challenge Screenshot](https://github.com/user-attachments/assets/d9c6c230-a043-404d-9e90-fd1f24d5a8ca)
+
+And here's what victory looks like:
+
+![Solution Screenshot](https://github.com/user-attachments/assets/2314e9ac-4d44-4434-b9d9-161ff6e67d2b)
+
 
 ## 🔮 Want More Brain-Bending Challenges?
 
